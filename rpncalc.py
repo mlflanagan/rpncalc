@@ -1,18 +1,22 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import string
+"""
+RPN calculator
+Python 3
+"""
+
 import operator
 
 operators = {'+': operator.add,
              '-': operator.sub,
              '*': operator.mul,
-             '/': operator.div}
+             '/': operator.truediv}
 
 while True:
     try:
         stack = []
-        for token in string.split(raw_input('> ')):
+        for token in (input('> ').split()):
             if token in operators:
                 y, x = stack.pop(), stack.pop()
                 z = operators[token](x, y)
@@ -22,7 +26,6 @@ while True:
         assert len(stack) <= 1
         if len(stack) == 1:
             print(stack.pop())
-    except EOFError:
+    except (EOFError, InterruptedError):
+        print("Goodbye")
         break
-    except:
-        print('error')
